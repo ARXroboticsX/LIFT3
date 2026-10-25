@@ -10,7 +10,7 @@ from liftlib import InterfacesPy, RobotType
 def main():
     # 配置
     CAN_ROBOT = 'can5'  # 机器人CAN接口
-    ROBOT_TYPE = RobotType.LIFT2026_18  # 带头部的 X7 用 X72026; 无头部的 LIFT: LIFT2026_18
+    ROBOT_TYPE = RobotType.LIFT2026_18  # 带头部的 X7 用 X72026; 无头部的 LIFT: 升降反装用 LIFT2026_18
 
     print("正在初始化机器人...")
 
@@ -34,7 +34,8 @@ def main():
             # 此处为了保持上电后无需复位，设置增量值
             # set_height_cmd=0     #距启动前，增加的高度值
             # set_lift_height=lift_height+set_height_cmd
-            robot.set_height(0.15)
+            # robot.set_height(set_lift_height)
+            robot.set_height(0.1)
 
 
             # 底盘速度，设置模式为1  x，y，z，mode  eg:(0.1,0,0,1)
@@ -47,8 +48,8 @@ def main():
 
 
             # 头部角度 rad (仅 X7 机型, LIFT 机型为空操作): 自动钳制软限位, 限速转动
-            # robot.set_head_yaw(0.2) 
-            # robot.set_head_pitch(-0.2)
+            robot.set_head_yaw(0.2) 
+            robot.set_head_pitch(-0.2)
 
             # 获取高度值
             get_chassis_height=robot.get_height()
